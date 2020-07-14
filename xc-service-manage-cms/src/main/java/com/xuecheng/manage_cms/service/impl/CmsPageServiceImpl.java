@@ -8,4 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface CmsPageServiceImpl {
     public QueryResponseResult findList(int page, int size, QueryPageRequest queryPageRequest);
+
+    //好像实现的方法没写这里，规范还是写这里
 }

@@ -2,6 +2,7 @@ package com.xuecheng.manage_cms.service;
 
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
+import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CmsPageService implements CmsPageServiceImpl {
@@ -71,5 +74,65 @@ public class CmsPageService implements CmsPageServiceImpl {
         //返回结果
         QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
         return queryResponseResult;
+    }
+
+    /**
+     * 添加新的页面
+     * @param cmsPage
+     * @return
+     */
+    public CmsPageResult add(CmsPage cmsPage) {
+        //1.判断要添加的页面是否已经存在
+        CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
+        if (cmsPage1 == null){
+            cmsPage.setPageId(null);    //因为这个id是MongoDB自动生成的，所以页面不管有没有设置为空
+            CmsPage save = cmsPageRepository.save(cmsPage);     //返回的save就是cmsPage
+            CmsPageResult cmsPageResult = new CmsPageResult(CommonCode.SUCCESS, save);
+            return cmsPageResult;
+        }
+        return new CmsPageResult(CommonCode.FAIL, null);
+    }
+
+    /**
+     * 根据ID查询页面
+     * @param id
+     * @return
+     */
+    public CmsPage findById(String id) {
+        Optional<CmsPage> optional = cmsPageRepository.findById(id);
+        if (optional.isPresent()){
+            return optional.get();
+        }
+        return null;
+    }
+
+    /**
+     * 更新页面
+     * @param id
+     * @param cmsPage
+     * @return
+     */
+    public CmsPageResult edit(String id, CmsPage cmsPage) {
+        //先查询是否有这个页面
+        CmsPage one = this.findById(id);
+        if (one != null){
+            //设置要更新的值
+            //更新模板id
+            one.setTemplateId(cmsPage.getTemplateId());
+            //更新所属站点
+            one.setSiteId(cmsPage.getSiteId());
+            //更新页面别名
+            one.setPageAliase(cmsPage.getPageAliase());
+            //更新页面名称
+            one.setPageName(cmsPage.getPageName());
+            //更新访问路径
+            one.setPageWebPath(cmsPage.getPageWebPath());
+            //更新物理路径
+            one.setPagePhysicalPath(cmsPage.getPagePhysicalPath());
+            //跟新到mongodb中
+            cmsPageRepository.save(one);
+            return new CmsPageResult(CommonCode.SUCCESS, one);
+        }
+        return new CmsPageResult(CommonCode.FAIL, null);
     }
 }
