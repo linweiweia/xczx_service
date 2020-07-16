@@ -85,10 +85,8 @@ public class CmsPageService implements CmsPageServiceImpl {
      * @return
      */
     public CmsPageResult add(CmsPage cmsPage) {
-        //参数异常
-        if (cmsPage == null){
-            return new CmsPageResult(CommonCode.FAIL, null);
-        }
+        //像参数异常cmsPage == null，在公共模块的ExceptionCatch中做同一处理这里不再处理.
+
         //判断要添加的页面是否已经存在
         CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
         if (cmsPage1 != null){
