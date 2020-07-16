@@ -2,10 +2,13 @@ package com.xuecheng.manage_cms.service;
 
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
+import com.xuecheng.framework.domain.cms.response.CmsCode;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
+import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
+import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_cms.dao.CmsPageRepository;
 import com.xuecheng.manage_cms.service.impl.CmsPageServiceImpl;
 import org.apache.commons.lang3.StringUtils;
@@ -82,15 +85,20 @@ public class CmsPageService implements CmsPageServiceImpl {
      * @return
      */
     public CmsPageResult add(CmsPage cmsPage) {
-        //1.判断要添加的页面是否已经存在
-        CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
-        if (cmsPage1 == null){
-            cmsPage.setPageId(null);    //因为这个id是MongoDB自动生成的，所以页面不管有没有设置为空
-            CmsPage save = cmsPageRepository.save(cmsPage);     //返回的save就是cmsPage
-            CmsPageResult cmsPageResult = new CmsPageResult(CommonCode.SUCCESS, save);
-            return cmsPageResult;
+        //参数异常
+        if (cmsPage == null){
+            return new CmsPageResult(CommonCode.FAIL, null);
         }
-        return new CmsPageResult(CommonCode.FAIL, null);
+        //判断要添加的页面是否已经存在
+        CmsPage cmsPage1 = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
+        if (cmsPage1 != null){
+            ExceptionCast.cast(CmsCode.CMS_ADDPAGE_EXISTSNAME);
+        }
+        //正确执行添加操作
+        cmsPage.setPageId(null);    //因为这个id是MongoDB自动生成的，所以页面不管有没有设置为空
+        CmsPage save = cmsPageRepository.save(cmsPage);     //返回的save就是cmsPage
+        CmsPageResult cmsPageResult = new CmsPageResult(CommonCode.SUCCESS, save);
+        return cmsPageResult;
     }
 
     /**
@@ -134,5 +142,19 @@ public class CmsPageService implements CmsPageServiceImpl {
             return new CmsPageResult(CommonCode.SUCCESS, one);
         }
         return new CmsPageResult(CommonCode.FAIL, null);
+    }
+
+    /**
+     * 删除页面
+     * @param id
+     * @return
+     */
+    public ResponseResult delete(String id) {
+        CmsPage cmsPage = this.findById(id);
+        if (cmsPage != null){
+            cmsPageRepository.deleteById(id);
+            return new ResponseResult(CommonCode.SUCCESS);
+        }
+        return new ResponseResult(CommonCode.FAIL);
     }
 }

@@ -7,6 +7,7 @@ import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
+import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_cms.service.CmsPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,22 @@ public class CmsPageController implements CmsPageControllerApi {
      */
     @Override
     @GetMapping("/get/{id}")
+
+
+
     public CmsPage findById(@PathVariable("id") String id) {
         return cmsPageService.findById(id);
+    }
+
+    /**
+     * 删除页面
+     * @param id
+     * @return
+     */
+    @Override
+    @DeleteMapping("/delete/{id}")
+    public ResponseResult delete(@PathVariable String id) {
+        return cmsPageService.delete(id);
     }
 
     /**
