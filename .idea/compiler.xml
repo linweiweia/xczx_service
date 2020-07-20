@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="xc-framework-utils" />
-        <module name="xc-service-manage-cms" />
-        <module name="xc-framework-model" />
-        <module name="xc-service-api" />
         <module name="xc-framework-common" />
+        <module name="xc-framework-model" />
+        <module name="xc-framework-utils" />
+        <module name="xc-service-api" />
+        <module name="xc-service-manage-cms" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,11 +25,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="xc-framework-common" options="-parameters" />
-      <module name="xc-framework-model" options="-parameters" />
-      <module name="xc-framework-utils" options="-parameters" />
-      <module name="xc-service-api" options="-parameters" />
-      <module name="xc-service-manage-cms" options="-parameters" />
+      <module name="xc-framework-common" options="" />
+      <module name="xc-framework-model" options="" />
+      <module name="xc-framework-utils" options="" />
+      <module name="xc-service-api" options="" />
+      <module name="xc-service-manage-cms" options="" />
     </option>
   </component>
 </project>
