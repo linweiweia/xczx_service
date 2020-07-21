@@ -44,8 +44,8 @@ public class FreemarkerTest {
         System.out.println(content);
         InputStream inputStream = IOUtils.toInputStream(content);
         //输出文件
-        FileOutputStream fileOutputStream = new FileOutputStream(new File("d:/test1.html"));
-        int copy = IOUtils.copy(inputStream, fileOutputStream);
+        FileOutputStream fileOutputStream = new FileOutputStream(new File("d:test1.html"));
+        IOUtils.copy(inputStream, fileOutputStream);
     }
 
     //基于模板字符串生成静态化文件
@@ -96,7 +96,7 @@ public class FreemarkerTest {
         stu2.setName("小红");
         stu2.setMondy(200.1f);
         stu2.setAge(19);
-//        stu2.setBirthday(new Date());
+        stu2.setBirthday(new Date());
         List<Student> friends = new ArrayList<>();
         friends.add(stu1);
         stu2.setFriends(friends);
@@ -114,6 +114,7 @@ public class FreemarkerTest {
         map.put("stu1",stu1);
         //向数据模型放数据
         map.put("stuMap",stuMap);
+        //返回模板文件名称
         return map;
     }
 }
