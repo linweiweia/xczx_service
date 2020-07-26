@@ -20,12 +20,12 @@ import java.util.Map;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class RestTemplateTest {
-    //@Autowired
-    //RestTemplate restTemplate;
-    //
-    //@Test
-    //public void testRestTemplate(){
-    //    ResponseEntity<Map> entity = restTemplate.getForEntity("http://localhost:31001/cms/config/getModel/5a791725dd573c3574ee333f", Map.class);
-    //    System.out.println(entity);
-    //}
+    @Autowired
+    RestTemplate restTemplate;
+
+    @Test
+    public void testRestTemplate(){
+        ResponseEntity<Map> entity = restTemplate.getForEntity("http://localhost:31001/cms/config/getModel/5a791725dd573c3574ee333f", Map.class);
+        System.out.println(entity);
+    }
 }

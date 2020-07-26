@@ -7,10 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="freemarker" />
         <module name="xc-framework-common" />
         <module name="xc-framework-model" />
         <module name="xc-framework-utils" />
-        <module name="freemarker" />
         <module name="xc-service-api" />
         <module name="xc-service-manage-cms" />
       </profile>
@@ -27,12 +27,12 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="freemarker" options="-parameters" />
-      <module name="xc-framework-common" options="-parameters" />
-      <module name="xc-framework-model" options="-parameters" />
-      <module name="xc-framework-utils" options="-parameters" />
-      <module name="xc-service-api" options="-parameters" />
-      <module name="xc-service-manage-cms" options="-parameters" />
+      <module name="freemarker" options="" />
+      <module name="xc-framework-common" options="" />
+      <module name="xc-framework-model" options="" />
+      <module name="xc-framework-utils" options="" />
+      <module name="xc-service-api" options="" />
+      <module name="xc-service-manage-cms" options="" />
     </option>
   </component>
 </project>
