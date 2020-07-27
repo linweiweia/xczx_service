@@ -11,22 +11,11 @@
 <body>
 <div class="banner-roll">
     <div class="banner-item">
-        <#--<div class="item" style="background-image: url(http://127.0.0.1/img/widget-bannerB.jpg);"></div>-->
-        <#--<div class="item" style="background-image: url(http://127.0.0.1/img/widget-bannerA.jpg);"></div>-->
-        <#--<div class="item" style="background-image: url(http://127.0.0.1/img/widget-banner3.png);"></div>-->
-        <#--<div class="item" style="background-image: url(http://127.0.0.1/img/widget-bannerB.jpg);"></div>-->
-        <#--<div class="item" style="background-image: url(http://127.0.0.1/img/widget-bannerA.jpg);"></div>-->
-        <#--<div class="item" style="background-image: url(http://127.0.0.1/img/widget-banner3.png);"></div>-->
-        <#--<#if model??>-->
-            <#--<#list model as item>-->
-                 <#--<div class="item" style="background-image: url(${item.value});"></div>-->
-            <#--</#list>-->
-        <#--</#if>-->
-        <if model??>
+        <#if model??>
             <#list model as item>
-            <div class="item" style="background-image: url(${item.value});"></div>
+                <div class="item" style="background-image: url(${item.value});"></div>
             </#list>
-        </if>
+        </#if>
     </div>
     <div class="indicators"></div>
 </div>
