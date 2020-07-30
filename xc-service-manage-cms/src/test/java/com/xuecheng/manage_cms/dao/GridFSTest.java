@@ -34,7 +34,7 @@ public class GridFSTest {
     GridFSBucket gridFSBucket;
 
     /**
-     * 存文件
+     * 存文件到fs.chunks/fs.files集合中
      * @throws FileNotFoundException
      */
     @Test
@@ -46,7 +46,7 @@ public class GridFSTest {
     }
 
     /**
-     * 取文件
+     * 从fs.chunks/fs中取
      */
     @Test
     public void testQuery() throws IOException {
