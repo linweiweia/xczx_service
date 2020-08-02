@@ -62,7 +62,7 @@ public class ProduceTest1 {
              * 4、body，消息内容
              */
             //消息内容
-            String message = "你好啊伟伟";
+            String message = "我是发送的消息";
             channel.basicPublish("", Queue, null, message.getBytes());
             System.out.println("send to mq" + message);
         } catch (IOException e) {
